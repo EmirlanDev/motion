@@ -17,6 +17,18 @@ const Header = () => {
     }
   }, [user]);
 
+  let profileBlock = document.querySelector(".header__profile");
+  let photoUser = document.querySelector(".header__photoUser");
+  let photoName = document.querySelector(".photoName");
+
+  window.addEventListener("click", (e) => {
+    if (e.target === photoUser || e.target === photoName) {
+      setProfile(true);
+    } else if (e.target !== profileBlock) {
+      setProfile(false);
+    }
+  });
+
   return (
     <header>
       <div className="container">
@@ -43,7 +55,8 @@ const Header = () => {
             onClick={() => setProfile(!profile)}
             style={{
               display: user ? "" : "none",
-            }}>
+            }}
+          >
             {user && user.photoURL ? (
               <img
                 className="header__photoUser"
@@ -51,16 +64,26 @@ const Header = () => {
                 alt="userPhotoURL"
               />
             ) : (
-              <h3>{user ? user.displayName.slice(0, 1) : ""}</h3>
+              <h3 className="photoName" onClick={() => setProfile(!profile)}>
+                {user && user.displayName ? user.displayName.slice(0, 1) : ""}
+              </h3>
             )}
           </div>
           <div
             style={{
               transform: profile ? "scaleY(1)" : "scaleY(0)",
             }}
-            className="header__profile">
-            <p>Profile</p>
-            <p onClick={() => logOut()}>Log Out</p>
+            className="header__profile"
+          >
+            <p onClick={() => navigate("/profile")}>Profile</p>
+            <p
+              onClick={() => {
+                logOut();
+                navigate("/");
+              }}
+            >
+              Log Out
+            </p>
           </div>
         </div>
       </div>

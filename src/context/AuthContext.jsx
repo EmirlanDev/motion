@@ -3,6 +3,7 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
@@ -37,6 +38,10 @@ const AuthContext = ({ children }) => {
     });
   }
 
+  async function logInWithEmailAndPassword(email, password) {
+    await signInWithEmailAndPassword(auth, email, password);
+  }
+
   async function signUpWithGoogle() {
     await signInWithPopup(auth, googleProvider);
   }
@@ -45,7 +50,12 @@ const AuthContext = ({ children }) => {
     await signOut(auth);
   }
 
-  const values = { signUpWithEmailAndPassword, signUpWithGoogle, logOut };
+  const values = {
+    signUpWithEmailAndPassword,
+    signUpWithGoogle,
+    logOut,
+    logInWithEmailAndPassword,
+  };
   return <authContext.Provider value={values}>{children}</authContext.Provider>;
 };
 
