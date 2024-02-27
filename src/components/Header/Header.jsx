@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import logo from "../../images/logoRed.svg";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useAuth } from "../../context/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const Header = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState(false);
-
-  const { logOut } = useAuth();
   const { user } = useSelector((s) => s);
 
   useEffect(() => {
@@ -78,7 +77,7 @@ const Header = () => {
             <p onClick={() => navigate("/profile")}>Profile</p>
             <p
               onClick={() => {
-                logOut();
+                signOut(auth);
                 navigate("/");
               }}
             >

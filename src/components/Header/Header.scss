@@ -2,8 +2,9 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #ffffff7e;
-  // border-bottom: 1px solid;
+  // background-color: #ffffff7e;
+  background-color: #fff;
+  border-bottom: 1px solid;
   z-index: 50;
   .container {
     position: relative;
@@ -110,6 +111,7 @@ header {
       flex-direction: column;
       gap: 10px;
       transition: 0.1s;
+      align-items: center;
       p {
         font-size: 18px;
         font-weight: 500;

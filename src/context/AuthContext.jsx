@@ -46,14 +46,9 @@ const AuthContext = ({ children }) => {
     await signInWithPopup(auth, googleProvider);
   }
 
-  async function logOut() {
-    await signOut(auth);
-  }
-
   const values = {
     signUpWithEmailAndPassword,
     signUpWithGoogle,
-    logOut,
     logInWithEmailAndPassword,
   };
   return <authContext.Provider value={values}>{children}</authContext.Provider>;
