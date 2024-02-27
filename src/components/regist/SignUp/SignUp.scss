@@ -5,8 +5,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  display: flex;
-  align-items: center;
+  z-index: 100;
   .sign-up {
     display: flex;
     justify-content: center;
@@ -14,14 +13,17 @@
     align-items: center;
     margin: 0 auto;
     max-width: 340px;
+    padding: 40px 0;
+    height: 100%;
     &__logo {
       display: flex;
       flex-direction: column;
       gap: 30px;
       align-items: center;
       border-bottom: 1px solid;
-      height: 230px;
-
+      // height: 230px;
+      margin: 20px 0 0;
+      padding-bottom: 20px;
       img {
         width: 150px;
       }

@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import logo from "../../images/logoRed.svg";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useAuth } from "../../context/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const Header = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState(false);
-
-  const { logOut } = useAuth();
   const { user } = useSelector((s) => s);
 
   useEffect(() => {
@@ -16,6 +15,18 @@ const Header = () => {
       setProfile(false);
     }
   }, [user]);
+
+  let profileBlock = document.querySelector(".header__profile");
+  let photoUser = document.querySelector(".header__photoUser");
+  let photoName = document.querySelector(".photoName");
+
+  window.addEventListener("click", (e) => {
+    if (e.target === photoUser || e.target === photoName) {
+      setProfile(true);
+    } else if (e.target !== profileBlock) {
+      setProfile(false);
+    }
+  });
 
   return (
     <header>
@@ -43,7 +54,8 @@ const Header = () => {
             onClick={() => setProfile(!profile)}
             style={{
               display: user ? "" : "none",
-            }}>
+            }}
+          >
             {user && user.photoURL ? (
               <img
                 className="header__photoUser"
@@ -51,16 +63,26 @@ const Header = () => {
                 alt="userPhotoURL"
               />
             ) : (
-              <h3>{user ? user.displayName.slice(0, 1) : ""}</h3>
+              <h3 className="photoName" onClick={() => setProfile(!profile)}>
+                {user && user.displayName ? user.displayName.slice(0, 1) : ""}
+              </h3>
             )}
           </div>
           <div
             style={{
               transform: profile ? "scaleY(1)" : "scaleY(0)",
             }}
-            className="header__profile">
-            <p>Profile</p>
-            <p onClick={() => logOut()}>Log Out</p>
+            className="header__profile"
+          >
+            <p onClick={() => navigate("/profile")}>Profile</p>
+            <p
+              onClick={() => {
+                signOut(auth);
+                navigate("/");
+              }}
+            >
+              Log Out
+            </p>
           </div>
         </div>
       </div>

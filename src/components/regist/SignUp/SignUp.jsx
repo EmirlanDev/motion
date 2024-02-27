@@ -85,18 +85,18 @@ const SignUp = () => {
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     if (user) {
-        navigate("/");
-      }
-  },[user])
+      navigate("/");
+    }
+  }, [user]);
 
   return (
     <section id="sign-up">
       <div className="container">
         <div className="sign-up">
+          <img src={logo} alt="logo" />
           <div className="sign-up__logo">
-            <img src={logo} alt="logo" />
             <h1>MOTION WEB PLATFORM</h1>
           </div>
           <h2>Зарегистрироваться</h2>
@@ -161,7 +161,8 @@ const SignUp = () => {
                     : "scale(0)",
                 }}
                 onClick={() => setPass(!pass)}
-                className="sign-up__pass__eye">
+                className="sign-up__pass__eye"
+              >
                 {pass ? (
                   <FaEye
                     style={{
@@ -188,7 +189,8 @@ const SignUp = () => {
                   !validPass
                     ? ""
                     : "none",
-              }}>
+              }}
+            >
               <MdError style={{ fontSize: "20px", color: "red" }} />
               {error}
             </h4>
@@ -196,7 +198,8 @@ const SignUp = () => {
           </div>
           <button
             onClick={() => signUpWithGoogle()}
-            className="sign-up__with-google">
+            className="sign-up__with-google"
+          >
             <img
               src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
               alt="googleBtn"

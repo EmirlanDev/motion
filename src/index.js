@@ -6,14 +6,17 @@ import { BrowserRouter } from "react-router-dom";
 import AuthContext from "./context/AuthContext";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import QuestionContext from "./context/QuestionContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <AuthContext>
-        <App />
-      </AuthContext>
+      <QuestionContext>
+        <AuthContext>
+          <App />
+        </AuthContext>
+      </QuestionContext>
     </Provider>
   </BrowserRouter>
 );
