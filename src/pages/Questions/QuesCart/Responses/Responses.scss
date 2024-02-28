@@ -1,0 +1,22 @@
+.responses {
+  margin: 10px 0;
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    max-height: 100px;
+    padding: 5px 10px;
+    background-color: cadetblue;
+    border-radius: 10px 10px 0 0;
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+  }
+  &__body {
+    padding: 5px 10px;
+    background-color: rgba(95, 158, 160, 0.644);
+    border-radius: 0 0 10px 10px;
+  }
+}

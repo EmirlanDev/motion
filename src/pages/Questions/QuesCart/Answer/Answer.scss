@@ -1,0 +1,15 @@
+.answer {
+  display: flex;
+  padding: 10px 0;
+  justify-content: space-evenly;
+  input {
+    width: 80%;
+    padding: 5px 10px;
+    border: 1px solid;
+    outline: none;
+    border-radius: 5px;
+  }
+  button {
+    padding: 0 10px;
+  }
+}

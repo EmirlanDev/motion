@@ -31,10 +31,14 @@ const Questions = () => {
           {questions.length > 0 ? (
             slice ? (
               <>
-                {questions.slice(0, 2).map((el, idx) => (
+                {questions.slice(0, 5).map((el, idx) => (
                   <QuesCart el={el} idx={idx} />
                 ))}
-                <button className="slice" onClick={() => setSlice(false)}>
+                <button
+                  style={{ display: questions.length < 5 ? "none" : "" }}
+                  className="slice"
+                  onClick={() => setSlice(false)}
+                >
                   ещё
                 </button>
               </>
@@ -43,7 +47,11 @@ const Questions = () => {
                 {questions.slice(0).map((el, idx) => (
                   <QuesCart el={el} idx={idx} />
                 ))}
-                <button className="slice" onClick={() => setSlice(true)}>
+                <button
+                  style={{ display: questions.length < 5 ? "none" : "" }}
+                  className="slice"
+                  onClick={() => setSlice(true)}
+                >
                   скрыть
                 </button>
               </>

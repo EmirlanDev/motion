@@ -70,6 +70,13 @@
           border: 1px solid rgb(65, 65, 65);
         }
       }
+      &__response {
+        padding-top: 10px;
+        &__scroll {
+          max-height: 400px;
+          overflow-y: scroll;
+        }
+      }
     }
   }
 }
