@@ -74,14 +74,14 @@ const Header = () => {
             }}
             className="header__profile"
           >
-            <p onClick={() => navigate("/profile")}>Profile</p>
+            <p onClick={() => navigate("/profile")}>Профиль</p>
             <p
               onClick={() => {
                 signOut(auth);
                 navigate("/");
               }}
             >
-              Log Out
+              Выйти
             </p>
           </div>
         </div>

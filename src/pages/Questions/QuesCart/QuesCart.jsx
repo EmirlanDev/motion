@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiSolidLike } from "react-icons/bi";
 import { FaCommentDots } from "react-icons/fa";
 import { CgClose } from "react-icons/cg";
 import { useSelector } from "react-redux";
 import { useQuestion } from "../../../context/QuestionContext";
+import Responses from "./Responses/Responses";
+import Answer from "./Answer/Answer";
 
 const QuesCart = ({ el, idx }) => {
-  const { user } = useSelector((s) => s);
+  const { user, questions } = useSelector((s) => s);
 
-  const { deleteQuestion, editQuestionLike } = useQuestion();
+  const { deleteQuestion, addQuestionLike, deleteQuestionLike } = useQuestion();
 
-  const likeObj = {
-    email: user.email,
-  };
+  const [response, setResponse] = useState(false);
+
+  function checkLike(el) {
+    if (el.like.length < 0 && el.like.find((email) => email == user.email)) {
+      addQuestionLike(el.id, user.email);
+    }
+    deleteQuestionLike(el.id);
+  }
 
   return (
     <section key={idx} id="ques-cart">
@@ -35,7 +42,14 @@ const QuesCart = ({ el, idx }) => {
         <div className="ques-cart__body">
           <h3>{el.value}</h3>
           <div className="ques-cart__body__btns">
-            <button onClick={() => editQuestionLike(el.id, likeObj)}>
+            <button
+              style={{
+                color: el.like.some((email) => email === user.email)
+                  ? "aqua"
+                  : "",
+              }}
+              onClick={() => checkLike(el)}
+            >
               <BiSolidLike />
               {el.like.length}
             </button>
@@ -43,7 +57,31 @@ const QuesCart = ({ el, idx }) => {
               <FaCommentDots />
               {el.comment.length}
             </button>
-            <button>Ответы {el.answer.length}</button>
+            <button
+              onClick={() => {
+                setResponse(true);
+              }}
+            >
+              Ответы {el.answer.length}
+            </button>
+            <button
+              style={{
+                marginLeft: "55%",
+                display: response ? "" : "none",
+              }}
+              onClick={() => setResponse(false)}
+            >
+              ^
+            </button>
+          </div>
+          <div
+            style={{ display: response ? "" : "none" }}
+            className="ques-cart__body__response"
+          >
+            <div className="ques-cart__body__response__scroll">
+              <Responses />
+            </div>
+            <Answer />
           </div>
         </div>
       </div>

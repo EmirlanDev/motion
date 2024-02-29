@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import React, { createContext, useContext } from "react";
 import { db } from "../firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionType } from "../redux/actionType";
 
 const questionContext = createContext();
@@ -18,8 +18,7 @@ export const useQuestion = () => useContext(questionContext);
 const QuestionContext = ({ children }) => {
   const questionCollectionRef = collection(db, "love");
   const dispacth = useDispatch();
-
-
+  const { user } = useSelector((s) => s);
 
   async function getQuestionCollection() {
     let data = await getDocs(questionCollectionRef);
@@ -39,7 +38,7 @@ const QuestionContext = ({ children }) => {
     await deleteDoc(questionId);
   }
 
-  async function editQuestionLike(id, userEmail) {
+  async function addQuestionLike(id, userEmail) {
     const userRef = doc(db, "love", id);
     const oneQues = await getDoc(userRef);
     let addLike = oneQues.data();
@@ -47,11 +46,22 @@ const QuestionContext = ({ children }) => {
     await updateDoc(userRef, addLike);
   }
 
+  async function deleteQuestionLike(id) {
+    const userRef = doc(db, "love", id);
+    const oneQues = await getDoc(userRef);
+    let addLike = oneQues.data();
+    let findedEmail = addLike.like.find((email) => email === user.email);
+    let idxEmail = addLike.like.indexOf(findedEmail);
+    addLike.like.splice(idxEmail, 1);
+    await updateDoc(userRef, addLike);
+  }
+
   const values = {
     addQuestion,
     getQuestionCollection,
     deleteQuestion,
-    editQuestionLike,
+    addQuestionLike,
+    deleteQuestionLike,
   };
   return (
     <questionContext.Provider value={values}>
