@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiSolidLike } from "react-icons/bi";
 import { FaCommentDots } from "react-icons/fa";
 import { CgClose } from "react-icons/cg";
@@ -15,10 +15,14 @@ const QuesCart = ({ el, idx }) => {
   const [response, setResponse] = useState(false);
 
   function checkLike(el) {
-    if (el.like.length < 0 && el.like.find((email) => email == user.email)) {
-      addQuestionLike(el.id, user.email);
+    if (IF()) {
+      deleteQuestionLike(el.id);
+      return;
     }
-    deleteQuestionLike(el.id);
+    addQuestionLike(el.id, user.email);
+  }
+  function IF() {
+    return el.like.some((email) => email === user.email);
   }
 
   return (
@@ -44,9 +48,7 @@ const QuesCart = ({ el, idx }) => {
           <div className="ques-cart__body__btns">
             <button
               style={{
-                color: el.like.some((email) => email === user.email)
-                  ? "aqua"
-                  : "",
+                color: IF() ? "aqua" : "",
               }}
               onClick={() => checkLike(el)}
             >
